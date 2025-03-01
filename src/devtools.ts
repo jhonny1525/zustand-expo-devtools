@@ -2,6 +2,7 @@ import {
     getDevToolsPluginClientAsync
 } from "expo/devtools";
 
+
 export const debuggerMiddleWare = async (store, storeName = new Date().toISOString()) => {
     const client = await getDevToolsPluginClientAsync(
         "zustand-expo-devtools"
