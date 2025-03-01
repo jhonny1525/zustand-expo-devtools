@@ -1,48 +1,49 @@
 import { useDevToolsPluginClient, type EventSubscription } from 'expo/devtools';
-import { useEffect } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import {useEffect, useRef} from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
   const client = useDevToolsPluginClient('zustand-expo-devtools');
+  const storeRefs = useRef<any>({})
 
   useEffect(() => {
-    const subscriptions: EventSubscription[] = [];
+      const extension = (window as any)?.__REDUX_DEVTOOLS_EXTENSION__
+      if(extension){
+          const subscriptions: EventSubscription[] = [];
 
-    subscriptions.push(
-      client?.addMessageListener('ping', (data) => {
-        alert(`Received ping from ${data.from}`);
-        client?.sendMessage('ping', { from: 'web' });
-      })
-    );
+          subscriptions.push(
+              client?.addMessageListener('ping', (data) => {
+                  if(data.type === 'CONNECT'){
+                      storeRefs.current[data.name] = extension?.connect({name:data.name})
+                  }
+                  if(data.type === 'INIT'){
+                      storeRefs.current[data.name]?.init(data.data)
+                  }
+                  if(data.type === 'UPDATE'){
+                      storeRefs.current[data.name]?.send("UPDATE",data.data)
+                  }
+              })
+          );
 
-    return () => {
-      for (const subscription of subscriptions) {
-        subscription?.remove();
+          return () => {
+              for (const subscription of subscriptions) {
+                  subscription?.remove();
+              }
+          };
       }
-    };
   }, [client]);
+
+  if(!(window as any)?.__REDUX_DEVTOOLS_EXTENSION__){
+      return <Text style={styles.text}>
+          Redux Devtools extension is not present
+      </Text>
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>
-        That's the Web UI of the DevTools plugin. You can now edit the UI in the
-        App.tsx.
+        Open the redux devtools from browsers extensions and refresh the application  to start seeing changes.
       </Text>
-      <Text style={[styles.text, styles.devHint]}>
-        For development, you can also add `devServer` query string to specify
-        the WebSocket target to the app's dev server.
-      </Text>
-      <Text style={[styles.text, styles.devHint]}>For example:</Text>
-      <Pressable
-        onPress={() => {
-          window.location.href =
-            window.location.href + '?devServer=localhost:8080';
-        }}
-      >
-        <Text style={[styles.text, styles.textLink]}>
-          {`${window.location.href}?devServer=localhost:8080`}
-        </Text>
-      </Pressable>
     </View>
   );
 }
