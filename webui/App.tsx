@@ -1,49 +1,57 @@
-import { useDevToolsPluginClient, type EventSubscription } from 'expo/devtools';
-import { useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import ActionList from './components/ActionList';
+import ActionDetail from './components/ActionDetail';
+import StoreList from './components/StoreList';
+import useStores from './hooks/useStores';
+
 export default function App() {
-  const client = useDevToolsPluginClient('zustand-expo-devtools');
-  const storeRefs = useRef<any>({});
-
-  useEffect(() => {
-    const extension = (window as any)?.__REDUX_DEVTOOLS_EXTENSION__;
-    if (extension) {
-      const subscriptions: EventSubscription[] = [];
-
-      subscriptions.push(
-        client?.addMessageListener('ping', data => {
-          if (data.type === 'CONNECT') {
-            storeRefs.current[data.name] = extension?.connect({ name: data.name });
-          }
-
-          if (data.type === 'INIT') {
-            storeRefs.current[data.name]?.init(data.data);
-          }
-          if (data.type === 'UPDATE') {
-            storeRefs.current[data.name]?.send('UPDATE', data.data);
-          }
-        }),
-      );
-
-      return () => {
-        for (const subscription of subscriptions) {
-          subscription?.remove();
-        }
-      };
-    }
-  }, [client]);
+  const { stores, storeNames } = useStores();
+  const [selectedStore, setSelectedStore] = useState<string | null>(
+    storeNames.length > 0 ? storeNames[0] : null,
+  );
+  const [selectedAction, setSelectedAction] = useState<{
+    action: string;
+    store: any;
+    actionData: any;
+  } | null>(null);
+  const [selectedActionIndex, setSelectedActionIndex] = useState<number | undefined>(undefined);
 
   if (!(window as any)?.__REDUX_DEVTOOLS_EXTENSION__) {
     return <Text style={styles.text}>Redux Devtools extension is not present</Text>;
   }
 
+  const handleSelectStore = (storeName: string) => {
+    setSelectedStore(storeName);
+    setSelectedAction(null);
+    setSelectedActionIndex(undefined);
+  };
+
+  const handleSelectAction = (
+    action: { action: string; store: any; actionData: any },
+    index: number,
+  ) => {
+    setSelectedAction(action);
+    setSelectedActionIndex(index);
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>
-        Open the redux devtools from browsers extensions and refresh the application to start seeing
-        changes.
-      </Text>
+      <View style={styles.content}>
+        <StoreList
+          storeNames={storeNames}
+          onSelectStore={handleSelectStore}
+          selectedStore={selectedStore}
+        />
+
+        <ActionList
+          actions={selectedStore ? stores[selectedStore] : undefined}
+          onSelectAction={handleSelectAction}
+          selectedActionIndex={selectedActionIndex}
+        />
+        <ActionDetail action={selectedAction} />
+      </View>
     </View>
   );
 }
@@ -52,12 +60,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  content: {
+    flex: 1,
+    flexDirection: 'row',
   },
   text: {
     fontSize: 16,
     marginBottom: 16,
+    textAlign: 'center',
+    padding: 20,
   },
   devHint: {
     color: '#666',
