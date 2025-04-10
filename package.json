@@ -12,7 +12,9 @@
     "prepare": "expo-module prepare",
     "prepublishOnly": "expo-module prepare && expo-module prepublishOnly && cd webui && npx expo export -p web --output-dir ../dist",
     "web:dev": "cd webui && npx expo start -w",
-    "web:export": "cd webui && npx expo export -p web --output-dir ../dist"
+    "web:export": "cd webui && npx expo export -p web --output-dir ../dist",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,md}\""
   },
   "keywords": [
     "expo",
@@ -28,6 +30,8 @@
   "devDependencies": {
     "expo": "~52.0.3",
     "expo-module-scripts": "^4.0.2",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.2.5",
     "typescript": "^5.6.3"
   },
   "peerDependencies": {

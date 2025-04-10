@@ -2,7 +2,6 @@
 
 A lightweight **Expo Dev Client Plugin** for visualizing **Zustand state** in Expo apps using **Expo SDK 50+**.
 
-
 https://github.com/user-attachments/assets/4c947711-f85f-4e89-99e3-1bdb914299b5
 
 ## Installation
@@ -37,9 +36,9 @@ Pass your Zustand store into the middleware function **before exporting**:
 import create from 'zustand';
 import { middleware } from 'zustand-expo-devtools';
 
-const useBearStore = create((set) => ({
+const useBearStore = create(set => ({
   bears: 0,
-  increase: () => set((state) => ({ bears: state.bears + 1 })),
+  increase: () => set(state => ({ bears: state.bears + 1 })),
 }));
 
 middleware(useBearStore);
@@ -69,4 +68,3 @@ Feel free to open issues or pull requests to improve the plugin!
 ## License
 
 MIT License
-

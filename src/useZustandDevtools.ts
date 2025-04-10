@@ -8,9 +8,9 @@ export function useZustandDevtools() {
     const subscriptions: EventSubscription[] = [];
 
     subscriptions.push(
-      client?.addMessageListener('ping', (data) => {
+      client?.addMessageListener('ping', data => {
         alert(`Received ping from ${data.from}`);
-      })
+      }),
     );
     client?.sendMessage('ping', { from: 'app' });
 
