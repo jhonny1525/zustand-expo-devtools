@@ -36,7 +36,6 @@ const ActionList: React.FC<ActionListProps> = ({
             onPress={() => onSelectAction && onSelectAction(action, index)}
           >
             <Text style={styles.actionType}>{action.action}</Text>
-            <Text style={styles.actionData}>{JSON.stringify(action.actionData, null, 2)}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -46,7 +45,6 @@ const ActionList: React.FC<ActionListProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 10,
   },
   scrollView: {
@@ -60,7 +58,7 @@ const styles = StyleSheet.create({
   },
   actionItem: {
     marginBottom: 15,
-    padding: 10,
+    paddingHorizontal: 10,
     backgroundColor: '#f9f9f9',
     borderRadius: 5,
     borderLeftWidth: 3,
@@ -74,6 +72,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 5,
+    textAlign: 'center',
+    textAlignVertical: 'center',
   },
   actionData: {
     fontSize: 14,

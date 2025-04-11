@@ -11,26 +11,6 @@ interface ActionDetailProps {
 }
 
 const ActionDetail: React.FC<ActionDetailProps> = ({ action }) => {
-  const oldData = {
-    name: 'super',
-    age: 18,
-    task: [
-      { name: 'eat', time: '09:00' },
-      { name: 'work', time: '10:00' },
-      { name: 'sleep', time: '22:00' },
-    ],
-  };
-  const newData = {
-    name: 'coolapt',
-    age: 20,
-    task: [
-      { name: 'eat', time: '09:00' },
-      { name: 'work', time: '10:00' },
-      { name: 'sleep', time: '23:00' },
-      { name: 'running', time: '08:00' },
-    ],
-  };
-
   if (!action) {
     return (
       <View style={styles.container}>
@@ -43,20 +23,6 @@ const ActionDetail: React.FC<ActionDetailProps> = ({ action }) => {
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <ReactJsonViewCompare oldData={action.store} newData={action.actionData} />
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Action Type</Text>
-          <Text style={styles.actionType}>{action.action}</Text>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Store</Text>
-          <Text style={styles.jsonData}>{JSON.stringify(action.store, null, 2)}</Text>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Action Data</Text>
-          <Text style={styles.jsonData}>{JSON.stringify(action.actionData, null, 2)}</Text>
-        </View>
       </ScrollView>
     </View>
   );
