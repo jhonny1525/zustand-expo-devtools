@@ -10,6 +10,7 @@ interface StoreListProps {
 const StoreList: React.FC<StoreListProps> = ({ storeNames, onSelectStore, selectedStore }) => {
   return (
     <View style={styles.container}>
+      <Text style={styles.sectionTitle}>Stores</Text>
       <ScrollView style={styles.scrollView}>
         {storeNames.map((storeName) => (
           <TouchableOpacity
@@ -42,6 +43,13 @@ const styles = StyleSheet.create({
     borderRightColor: '#333333', // Darker border for dark mode
     height: '100%',
     backgroundColor: '#1e1e1e', // Dark background
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#e0e0e0', // Light text for dark background
+    padding: 10,
   },
   scrollView: {
     flex: 1,

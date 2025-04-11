@@ -28,6 +28,7 @@ const ActionList: React.FC<ActionListProps> = ({
 
   return (
     <View style={styles.container}>
+      <Text style={styles.sectionTitle}>Actions</Text>
       <ScrollView style={styles.scrollView}>
         {actions.map((action, index) => (
           <TouchableOpacity
@@ -48,6 +49,13 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#1e1e1e', // Dark background
     width: 200,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#e0e0e0', // Light text for dark background
+    padding: 10,
   },
   scrollView: {
     flex: 1,

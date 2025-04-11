@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import ReactJsonViewCompare from 'react-json-view-compare';
 
 interface ActionDetailProps {
@@ -11,6 +11,8 @@ interface ActionDetailProps {
 }
 
 const ActionDetail: React.FC<ActionDetailProps> = ({ action }) => {
+  const [activeTab, setActiveTab] = useState<'diff' | 'current'>('diff');
+
   if (!action) {
     return (
       <View style={styles.container}>
@@ -21,8 +23,28 @@ const ActionDetail: React.FC<ActionDetailProps> = ({ action }) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.tabContainer}>
+        <TouchableOpacity
+          style={[styles.tab, activeTab === 'diff' && styles.activeTab]}
+          onPress={() => setActiveTab('diff')}
+        >
+          <Text style={[styles.tabText, activeTab === 'diff' && styles.activeTabText]}>Diff</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.tab, activeTab === 'current' && styles.activeTab]}
+          onPress={() => setActiveTab('current')}
+        >
+          <Text style={[styles.tabText, activeTab === 'current' && styles.activeTabText]}>Current State</Text>
+        </TouchableOpacity>
+      </View>
+
+      <Text style={styles.sectionTitle}>{activeTab === 'diff' ? 'Difference' : 'Current State'}</Text>
       <ScrollView style={styles.scrollView}>
-        <ReactJsonViewCompare oldData={action.store} newData={action.actionData} />
+        {activeTab === 'diff' ? (
+          <ReactJsonViewCompare oldData={action.store} newData={action.actionData} />
+        ) : (
+          <ReactJsonViewCompare oldData={{}} newData={action.actionData} />
+        )}
       </ScrollView>
     </View>
   );
@@ -56,6 +78,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
     color: '#e0e0e0', // Light text for dark background
+    padding: 10,
   },
   actionType: {
     fontSize: 16,
@@ -66,6 +89,29 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'monospace',
     color: '#e0e0e0', // Light text for dark background
+  },
+  tabContainer: {
+    flexDirection: 'row',
+    marginBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#333333',
+  },
+  tab: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginRight: 5,
+  },
+  activeTab: {
+    borderBottomWidth: 2,
+    borderBottomColor: '#4da6ff', // Lighter blue for dark mode
+  },
+  tabText: {
+    fontSize: 16,
+    color: '#a0a0a0', // Lighter gray for dark mode
+  },
+  activeTabText: {
+    color: '#4da6ff', // Lighter blue for dark mode
+    fontWeight: 'bold',
   },
 });
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import ActionList from './components/ActionList';
@@ -35,6 +35,16 @@ export default function App() {
     setSelectedAction(action);
     setSelectedActionIndex(index);
   };
+
+  // Automatically select the latest action when a new action is received
+  useEffect(() => {
+    if (selectedStore && stores[selectedStore]?.length > 0) {
+      const latestActionIndex = stores[selectedStore].length - 1;
+      const latestAction = stores[selectedStore][latestActionIndex];
+      setSelectedAction(latestAction);
+      setSelectedActionIndex(latestActionIndex);
+    }
+  }, [stores, selectedStore]);
 
   return (
     <View style={styles.container}>
