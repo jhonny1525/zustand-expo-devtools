@@ -2,7 +2,7 @@
 
 A lightweight **Expo Dev Client Plugin** for visualizing **Zustand state** in Expo apps using **Expo SDK 50+**.
 
-https://github.com/user-attachments/assets/4c947711-f85f-4e89-99e3-1bdb914299b5
+https://github.com/user-attachments/assets/532355d9-c82a-4f97-aab4-54f09a52f54a
 
 ## Installation
 
@@ -41,7 +41,7 @@ const useBearStore = create(set => ({
   increase: () => set(state => ({ bears: state.bears + 1 })),
 }));
 
-middleware(useBearStore);
+middleware(useBearStore,"Bears");
 
 export default useBearStore;
 ```
