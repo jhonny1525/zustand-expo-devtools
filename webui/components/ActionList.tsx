@@ -46,27 +46,29 @@ const ActionList: React.FC<ActionListProps> = ({
 const styles = StyleSheet.create({
   container: {
     padding: 10,
+    backgroundColor: '#1e1e1e', // Dark background
+    width: 200,
   },
   scrollView: {
     flex: 1,
   },
   emptyText: {
     fontSize: 16,
-    color: '#666',
+    color: '#a0a0a0', // Lighter gray for dark mode
     textAlign: 'center',
     marginTop: 20,
   },
   actionItem: {
     marginBottom: 15,
     paddingHorizontal: 10,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#2d2d2d', // Darker item background
     borderRadius: 5,
     borderLeftWidth: 3,
-    borderLeftColor: '#007AFF',
+    borderLeftColor: '#4da6ff', // Lighter blue for dark mode
   },
   selectedActionItem: {
-    backgroundColor: '#e6f2ff',
-    borderLeftColor: '#0056b3',
+    backgroundColor: '#777777', // Slightly lighter for selected items
+    borderLeftColor: '#80bdff', // Brighter blue for selected items
   },
   actionType: {
     fontSize: 16,
@@ -74,10 +76,12 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     textAlign: 'center',
     textAlignVertical: 'center',
+    color: '#e0e0e0', // Light text for dark background
   },
   actionData: {
     fontSize: 14,
     fontFamily: 'monospace',
+    color: '#e0e0e0', // Light text for dark background
   },
 });
 

@@ -33,37 +33,39 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     borderLeftWidth: 1,
-    borderLeftColor: '#e0e0e0',
+    borderLeftColor: '#333333', // Darker border for dark mode
+    backgroundColor: '#1e1e1e', // Dark background
   },
   scrollView: {
     flex: 1,
   },
   emptyText: {
     fontSize: 16,
-    color: '#666',
+    color: '#a0a0a0', // Lighter gray for dark mode
     textAlign: 'center',
     marginTop: 20,
   },
   section: {
     marginBottom: 20,
     padding: 10,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#2d2d2d', // Darker section background
     borderRadius: 5,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#333',
+    color: '#e0e0e0', // Light text for dark background
   },
   actionType: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#007AFF',
+    color: '#4da6ff', // Lighter blue for dark mode
   },
   jsonData: {
     fontSize: 14,
     fontFamily: 'monospace',
+    color: '#e0e0e0', // Light text for dark background
   },
 });
 

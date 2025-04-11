@@ -39,8 +39,9 @@ const styles = StyleSheet.create({
   container: {
     width: 200,
     borderRightWidth: 1,
-    borderRightColor: '#e0e0e0',
+    borderRightColor: '#333333', // Darker border for dark mode
     height: '100%',
+    backgroundColor: '#1e1e1e', // Dark background
   },
   scrollView: {
     flex: 1,
@@ -48,16 +49,18 @@ const styles = StyleSheet.create({
   storeItem: {
     padding: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomColor: '#333333', // Darker border for dark mode
   },
   selectedStoreItem: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#3a3a3a', // Slightly lighter for selected items
   },
   storeText: {
     fontSize: 16,
+    color: '#e0e0e0', // Light text for dark background
   },
   selectedStoreText: {
     fontWeight: 'bold',
+    color: '#4da6ff', // Lighter blue for selected text
   },
 });
 

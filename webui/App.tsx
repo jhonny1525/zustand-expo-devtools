@@ -59,7 +59,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#121212', // Dark background
   },
   content: {
     flex: 1,
@@ -70,12 +70,13 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     textAlign: 'center',
     padding: 20,
+    color: '#e0e0e0', // Light text for dark background
   },
   devHint: {
-    color: '#666',
+    color: '#a0a0a0', // Lighter gray for dark mode
   },
   textLink: {
-    color: '#007AFF',
+    color: '#4da6ff', // Lighter blue for dark mode
     textDecorationLine: 'underline',
   },
 });
