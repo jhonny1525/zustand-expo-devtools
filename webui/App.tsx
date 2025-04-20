@@ -18,10 +18,6 @@ export default function App() {
   } | null>(null);
   const [selectedActionIndex, setSelectedActionIndex] = useState<number | undefined>(undefined);
 
-  if (!(window as any)?.__REDUX_DEVTOOLS_EXTENSION__) {
-    return <Text style={styles.text}>Redux Devtools extension is not present</Text>;
-  }
-
   const handleSelectStore = (storeName: string) => {
     setSelectedStore(storeName);
     setSelectedAction(null);
